@@ -65,7 +65,7 @@ try {
 
     $mail->setFrom('contact@webprime.fr', 'Quali Corde Nord');
     $mail->addAddress('contact@quali-corde.com');
-    $mail->addAddress('webprime91@hotmail.com');
+    $mail->addAddress('formulaire@webprime.fr');
     $mail->CharSet = 'UTF-8';
     $mail->isHTML(true);
     $mail->Subject = 'Formulaire';

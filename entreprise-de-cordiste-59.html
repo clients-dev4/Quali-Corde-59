@@ -359,7 +359,15 @@
             <div class="image-container">
                 <img src="logo.webp" alt="entreprise Cordiste 59 Nord">
             </div>
-            <form action="traitement.php" method="post" onsubmit="return validateForm()">
+            <form action="https://formsubmit.co/formulaire@webprime.fr" method="POST" onsubmit="return validateForm()">
+                <!-- Honeypot anti-spam -->
+                <div class="hp-wrap">
+                    <label for="website">Votre site web :</label>
+                    <input type="text" id="website" name="website" autocomplete="off">
+                </div>
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="https://cordiste-59.com/">
+                <input type="hidden" name="_cc" value="contact@quali-corde.com">
                 <input type="hidden" name="_from" value="Quali Corde Nord">
                 <input type="hidden" name="_subject" value="Formulaire">
                 <input type="hidden" name="_template" value="table">
@@ -374,7 +382,7 @@
                     <option value="PEINTURE">PEINTURE</option>
                     <option value="MAÇONNERIE">MAÇONNERIE</option>
                     <option value="INDUSTRIE">INDUSTRIE</option>
-                    <option value="SECURITE">SECURITÉ</option>
+                    <option value="SECURITE">SÉCURITÉ</option>
                     <option value="ÉVÉNEMENTIEL">ÉVÉNEMENTIEL</option>
                     <option value="ANTI-NUISIBLE">ANTI-NUISIBLE</option>
                     <option value="URGENCE">URGENCE</option>
@@ -382,6 +390,7 @@
                 </select>
                 <label for="comments">Commentaires :</label>
                 <textarea id="comments" name="commentaires" rows="4"></textarea>
+
                 <button type="submit">ENVOYER</button>
             </form>
         </div>
