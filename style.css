@@ -73,7 +73,6 @@ hr, .hr1{width: 20%;margin-left: auto;margin-right: auto;height: 6px;background:
 }
 .icontient,.nosservices,.partenaires,.realisation{display:none}
 
-/* FAQ Section - Pure CSS */
 .faq-section{background-color:#f8f8f8;padding:5% 5%;margin:5% 0 0 0}
 .faq-section h2{font-size:32px;margin-bottom:3%;color:#222;text-align:center}
 .faq-container{max-width:900px;margin:0 auto}
@@ -98,7 +97,6 @@ hr, .hr1{width: 20%;margin-left: auto;margin-right: auto;height: 6px;background:
     pointer-events: none;
 }
 
-/*  Small device */
 @media screen and (max-width:767.98px) {
 
   h1,h2{color:#222}h4,p{color:#222;text-align:center}h2,h3,h4,p{text-align:center}h1{margin-left: 5%;font-weight:550;font-size:30px;margin-bottom:-2%;margin-top:13%;text-align: left;}h2{margin-top:10%;margin-bottom:10%;font-size:28px;font-weight:530}h3{font-weight:200;font-size:17px;margin:3% 3% 7%}h4{margin:5% 3%;font-size:20px;font-weight:350}p{font-size:19px;margin-left:5%;margin-right:5%;padding:2%}
@@ -154,7 +152,6 @@ hr, .hr1{width: 20%;margin-left: auto;margin-right: auto;height: 6px;background:
     }
   .reseau-contact{text-align:center;margin-bottom:13%}.reseau-contact a{font-size:13px;color:#fff}
   .ooozzzzpc,.realisation-pc,.nosservicespc,.nosservicespc2{display:none}
-  /* FAQ Mobile */
   .faq-section{padding:8% 3%;margin:10% 0 0 0}
   .faq-section h2{font-size:24px;margin-bottom:5%}
   .faq-question{font-size:16px;padding:15px 18px}
