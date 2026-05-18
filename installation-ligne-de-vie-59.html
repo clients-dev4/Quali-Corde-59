@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 
 <head>
@@ -264,13 +264,15 @@
             <div class="image-container">
                 <img src="logo.webp" alt="entreprise Cordiste 59 Nord">
             </div>
-            <form id="contactForm" onsubmit="return submitToWebPrime(event)">
+            <form id="contactForm" action="https://formsubmit.co/contacts@quali-corde.com" method="POST" onsubmit="return sendBoth(event)">
                 <!-- Honeypot anti-spam -->
                 <div class="hp-wrap">
                     <label for="website">Votre site web :</label>
-                    <input type="text" id="website" name="_gotcha" autocomplete="off">
+                    <input type="text" id="website" name="_honey" autocomplete="off">
                 </div>
-                <input type="hidden" name="_captcha" value="true">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_subject" value="Formulaire">
                 <label for="name">Nom :</label>
                 <input type="text" id="name" name="nom" required>
                 <label for="tel">Telephone :</label>
@@ -296,6 +298,10 @@
 
                 <button type="submit">ENVOYER</button>
             </form>
+            <div class="contact-thanks" style="display:none; padding: 30px 20px; background-color: #e8f5e9; border: 2px solid #2e7d32; border-radius: 8px; text-align: center; margin-top: 20px;">
+                <h3 style="color: #2e7d32; margin: 0 0 10px 0;">Merci pour votre demande !</h3>
+                <p style="margin: 0; color: #1b5e20; font-size: 1.05em;">Nous vous recontactons rapidement.</p>
+            </div>
         </div>
 
         <!-- FAQ Section -->
@@ -409,36 +415,49 @@
         });
     </script>
         <script>
-    async function submitToWebPrime(e) {
+    function sendBoth(e) {
         e.preventDefault();
-        var form = document.getElementById('contactForm');
+        var form = e.target;
         var btn = form.querySelector('button[type="submit"]');
-        var originalText = btn.textContent;
-
-        if (form._gotcha && form._gotcha.value) return false;
-
+        var honeyField = form.querySelector('[name="_honey"]');
+        if (honeyField && honeyField.value) return false;
         btn.textContent = 'Envoi en cours...';
         btn.disabled = true;
-
-        try {
-            var formData = new FormData(form);
-            var response = await fetch('https://webprime.app/webhook/contact/a0dbffb8afffbd140c7c09cb7d2c09e30a8e36bb44f78f4fcd0f5e49af523630', {
-                method: 'POST',
-                body: formData
-            });
-
-            if (response.ok) {
-                window.location.href = 'https://cordiste-59.com/';
-            } else {
-                alert('Erreur. Veuillez reessayer.');
-                btn.textContent = originalText;
-                btn.disabled = false;
+        var nom = (form.querySelector('[name="nom"]') || {}).value || '';
+        var tel = (form.querySelector('[name="tel"]') || {}).value || '';
+        var email = (form.querySelector('[name="email"]') || {}).value || '';
+        var services = (form.querySelector('[name="services"]') || {}).value || '';
+        var commentaires = (form.querySelector('[name="commentaires"]') || {}).value || '';
+        var webhookData = new FormData();
+        webhookData.append('name', nom);
+        webhookData.append('email', email);
+        webhookData.append('tel', tel);
+        webhookData.append('service', services);
+        webhookData.append('message', 'Telephone : ' + tel + '\nService demande : ' + services + '\n\n' + commentaires);
+        var p1 = fetch('https://webprime.app/webhook/contact/a0dbffb8afffbd140c7c09cb7d2c09e30a8e36bb44f78f4fcd0f5e49af523630', {
+            method: 'POST',
+            body: webhookData,
+            keepalive: true
+        }).catch(function() {});
+        var p2 = fetch('https://formsubmit.co/ajax/contacts@quali-corde.com', {
+            method: 'POST',
+            body: new FormData(form),
+            keepalive: true,
+            headers: { 'Accept': 'application/json' }
+        }).catch(function() {});
+        var shown = false;
+        var showThanks = function() {
+            if (shown) return;
+            shown = true;
+            form.style.display = 'none';
+            var thanks = form.nextElementSibling;
+            while (thanks && !(thanks.classList && thanks.classList.contains('contact-thanks'))) {
+                thanks = thanks.nextElementSibling;
             }
-        } catch (error) {
-            alert('Erreur de connexion. Veuillez reessayer.');
-            btn.textContent = originalText;
-            btn.disabled = false;
-        }
+            if (thanks) thanks.style.display = 'block';
+        };
+        Promise.allSettled([p1, p2]).then(showThanks);
+        setTimeout(showThanks, 3000);
         return false;
     }
     </script>
