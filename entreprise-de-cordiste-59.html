@@ -413,7 +413,7 @@
                 <label for="name">Nom :</label>
                 <input type="text" id="name" name="nom" required pattern="[A-Za-zÀ-ÿ' -]{2,60}" title="Indiquez votre nom (lettres uniquement, 2 a 60 caracteres)">
                 <label for="tel">Telephone :</label>
-                <input type="tel" id="tel" name="tel" pattern="^((\+33|0)[1679])[0-9]{8}$" maxlength="12" required>
+                <input type="tel" id="tel" name="tel" required pattern="(?:(?:\+|00)33[ .\-]?|0)[1679](?:[ .\-]?\d{2}){4}" maxlength="20" inputmode="tel" title="Numéro français uniquement : 06 12 34 56 78 ou +33 6 12 34 56 78">
 
                 <label for="email">Email :</label>
                 <input type="email" id="email" name="email" required>
